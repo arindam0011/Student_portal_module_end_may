@@ -112,8 +112,8 @@ function SearchStudent(event) {
     let nameSplit = name.trim().split(' ');
 
 
-    let firstName="";
-    let lastName="";
+    let firstName = "";
+    let lastName = "";
 
 
     if (nameSplit.length >= 2) {
@@ -123,32 +123,259 @@ function SearchStudent(event) {
         alert("Please enter both first and last names");
         return;
     }
-   
- arrayOfStudents.map(getStudentDetails);
-    
 
-   function getStudentDetails(student){
-    console.log(firstName, lastName);
-        if(student.first_name==firstName && student.last_name==lastName){
-            let trow=document.createElement('tr');
-            trow.innerHTML=` 
-            <td>${student.id}</td>
-            <td class="sname"> <img src="${student.img_src}"><span class="span">${student.first_name} ${student.last_name}</span></td>
-            <td>${student.gender}</td>
-            <td>${student.class}</td>
-            <td>${student.marks}</td>
+    arrayOfStudents.map(getStudentDetails);
+
+
+    function getStudentDetails(student) {
+
+        if (student.first_name == firstName && student.last_name == lastName) {
+            let trow = document.createElement('tr');
+            trow.setAttribute("class", 'stuRow');
+            trow.innerHTML = ` 
+            <td class="stuId">${student.id}</td>
+            <td class="sname"> <img src="${student.img_src}"><span class="span stuName">${student.first_name} ${student.last_name}</span></td>
+            <td class="stuGender">${student.gender}</td>
+            <td class="stuClass">${student.class}</td>
+            <td class="stuMarks">${student.marks}</td>
             <td class="passing">${student.passing}</td>
             <td>${student.email}</td>
             `
-            console.log(trow);
-            let passing=trow.querySelector(".passing");
+            let passing = trow.querySelector(".passing");
             passing.innerText = student.passing ? "Passed" : "Failed";
-            
-            let tbody=document.getElementById("table-body");
+
+            let tbody = document.getElementById("table-body");
             tbody.append(trow);
 
         }
     }
+    document.getElementById("searchName").value = "";
+
+}
 
 
+const sortAZ = document.getElementById("sortAZ");
+
+
+sortAZ.addEventListener("click", AZsort);
+
+function AZsort(event) {
+
+    let tbody = Array.from(document.querySelectorAll(".stuRow"));
+
+    tbody.sort((a, b) => {
+        let name1 = a.querySelector(".stuName");
+        let name2 = b.querySelector(".stuName");
+
+        if (!name1 || !name2) return 0;
+
+        let N1 = name1.textContent.trim();
+        let N2 = name2.textContent.trim();
+        return N1.localeCompare(N2);
+    })
+
+    let tableBody = document.querySelector("#table-body");
+
+    tbody.forEach(row =>
+        tableBody.append(row)
+    );
+
+}
+const sortZA = document.getElementById("sortZA");
+
+sortZA.addEventListener("click", ZAsort);
+
+
+function ZAsort(event) {
+
+    let tbody = Array.from(document.querySelectorAll(".stuRow"));
+
+    tbody.sort((a, b) => {
+        let name1 = a.querySelector(".stuName");
+        let name2 = b.querySelector(".stuName");
+
+        if (!name1 || !name2) return 0;
+
+        let N1 = name1.textContent.trim();
+        let N2 = name2.textContent.trim();
+        return N1.localeCompare(N2);
+    })
+
+    let tableBody = document.querySelector("#table-body");
+    tbody.forEach(row =>
+        tableBody.prepend(row)
+    );
+}
+
+
+const sortMarks = document.getElementById("sortMarks");
+
+sortMarks.addEventListener("click", marksSort);
+
+function marksSort() {
+    let tbody = Array.from(document.querySelectorAll(".stuRow"));
+
+    tbody.sort((a, b) => {
+        let marks1 = parseInt(a.querySelector(".stuMarks")?.textContent.trim());
+        let marks2 = parseInt(b.querySelector(".stuMarks")?.textContent.trim());
+
+        return marks2 - marks1;
+    })
+
+    let tablebody = document.querySelector("#table-body");
+
+    tbody.forEach(row =>
+        tablebody.append(row)
+    );
+}
+
+
+
+const sortPassing = document.getElementById("sortPassing");
+
+sortPassing.addEventListener("click", passingSort);
+
+function passingSort() {
+    let tbody = Array.from(document.querySelectorAll(".stuRow"));
+
+    let tablebody = document.querySelector("#table-body");
+
+
+    tablebody.innerHTML = ``
+        ;
+    tbody.forEach(row => {
+        let passingStatus = row.querySelector(".passing")?.textContent.trim();
+        console.log(passingStatus);
+        if (passingStatus === "Passed") {
+            tablebody.append(row)
+        }
+    }
+
+    );
+}
+
+const sortClass = document.getElementById("sortClass");
+
+sortClass.addEventListener("click", classSort);
+
+function classSort() {
+    let tbody = Array.from(document.querySelectorAll(".stuRow"));
+
+    tbody.sort((a, b) => {
+        let class1 = parseInt(a.querySelector(".stuClass")?.textContent.trim());
+        let class2 = parseInt(b.querySelector(".stuClass")?.textContent.trim());
+        return class1 - class2;
+    })
+
+    let tableBody = document.querySelector("#table-body");
+    tbody.forEach(row =>
+        tableBody.append(row)
+    );
+}
+
+const sortGender = document.getElementById("sortGender");
+
+
+sortGender.addEventListener("click", genderSort);
+let ct = 0;
+function genderSort() {
+
+    if (ct == 0) {
+        let table2 = document.createElement("table");
+        table2.id = "result-table";
+        table2.className = "table2";
+        table2.innerHTML = `<thead class="table-head">
+   <td class="table-id">ID</td>
+
+   <td class="table-name ">Name</td>
+
+   <td class="table-gender">Gender</td>
+
+   <td class="table-class">Class</td>
+
+   <td class="table-marks">Marks</td>
+
+   <td class="table-passing">Passing</td>
+
+   <td class="table-email">Email</td>
+</thead>
+
+<tbody id="table-body2">
+
+</tbody>`;
+        document.body.append(table2);
+        alert("Gender table created");
+        ct++;
+    }
+    else if (ct > 0) {
+
+        let removeTable = document.querySelector(".table2");
+        removeTable.remove();
+        ct--;
+    }
+
+
+    let tbody = Array.from(document.querySelectorAll(".stuRow"));
+
+
+
+    tbody.sort((a, b) => {
+        let gender1 = a.querySelector(".stuGender")?.textContent.trim();
+        let gender2 = b.querySelector(".stuGender")?.textContent.trim();
+        return gender1.localeCompare(gender2);
+    })
+
+
+    let tableBody = document.querySelector("#table-body");
+    let tableBody2 = document.querySelector("#table-body2");
+
+
+    tableBody.innerHTML = '';
+    if (tableBody2) {
+        tableBody2.innerHTML = '';
+    }
+
+
+
+    tbody.forEach(row => {
+        if (row.querySelector(".stuGender")?.textContent.trim() === "Female") {
+            tableBody.append(row);
+        }
+        else if (tableBody2) {
+            tableBody2.append(row);
+        }
+    })
+
+
+}
+
+const getAllStudent = document.getElementById("Map");
+
+getAllStudent.addEventListener("click", AllStudents);
+
+function AllStudents() {
+    let tableBody = document.querySelector("#table-body");
+        tableBody.innerHTML = ``;
+    arrayOfStudents.map(getStudentDetails);
+
+
+    function getStudentDetails(student) {
+        
+        let trow = document.createElement('tr');
+        trow.setAttribute("class", 'stuRow');
+        trow.innerHTML = ` 
+            <td class="stuId">${student.id}</td>
+            <td class="sname"> <img src="${student.img_src}"><span class="span stuName">${student.first_name} ${student.last_name}</span></td>
+            <td class="stuGender">${student.gender}</td>
+            <td class="stuClass">${student.class}</td>
+            <td class="stuMarks">${student.marks}</td>
+            <td class="passing">${student.passing}</td>
+            <td>${student.email}</td>
+            `
+        let passing = trow.querySelector(".passing");
+        passing.innerText = student.passing ? "Passed" : "Failed";
+
+        let tbody = document.getElementById("table-body");
+        tbody.append(trow);
+    }
 }
