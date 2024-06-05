@@ -124,13 +124,14 @@ function SearchStudent(event) {
         alert("Please enter both first and last names");
         return;
     }
-
+   let sudentFound=false;
     arrayOfStudents.map(getStudentDetails);
 
 
     function getStudentDetails(student) {
 
         if (student.first_name == firstName && student.last_name == lastName) {
+            sudentFound=true;
             let trow = document.createElement('tr');
             trow.setAttribute("class", 'stuRow');
             trow.innerHTML = ` 
@@ -148,11 +149,14 @@ function SearchStudent(event) {
             let tbody = document.getElementById("table-body");
             tbody.innerHTML = ``;
             tbody.append(trow);
-
+            
         }
+       
     }
     document.getElementById("searchName").value = "";
-
+     if(!sudentFound){
+         alert("Student not found");
+     }
 }
 
 
