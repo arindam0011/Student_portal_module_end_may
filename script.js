@@ -1,3 +1,4 @@
+
 let arrayOfStudents = [{ "id": 1, "first_name": "Chadwick", "last_name": "Ayre", "email": "cayre0@cam.ac.uk", "gender": "Male", "img_src": "https://robohash.org/corporisquiaperiam.png?size=50x50&set=set1", "class": 11, "marks": 18, "passing": false, "city": "Moorreesburg" },
 { "id": 2, "first_name": "Abrahan", "last_name": "Seabrocke", "email": "aseabrocke1@ocn.ne.jp", "gender": "Male", "img_src": "https://robohash.org/autiuredistinctio.png?size=50x50&set=set1", "class": 3, "marks": 27, "passing": true, "city": "Kampong Thom" },
 { "id": 3, "first_name": "Nathanael", "last_name": "Laye", "email": "nlaye2@typepad.com", "gender": "Male", "img_src": "https://robohash.org/dolorumsedut.png?size=50x50&set=set1", "class": 10, "marks": 89, "passing": false, "city": "Niquinohomo" },
@@ -145,6 +146,7 @@ function SearchStudent(event) {
             passing.innerText = student.passing ? "Passed" : "Failed";
 
             let tbody = document.getElementById("table-body");
+            tbody.innerHTML = ``;
             tbody.append(trow);
 
         }
@@ -171,11 +173,11 @@ function AZsort(event) {
 
         let N1 = name1.textContent.trim();
         let N2 = name2.textContent.trim();
-        return N1.localeCompare(N2);
+        return N1.toLowerCase().localeCompare(N2.toLowerCase());
     })
 
     let tableBody = document.querySelector("#table-body");
-
+    tableBody.innerHTML = ``;
     tbody.forEach(row =>
         tableBody.append(row)
     );
@@ -219,7 +221,7 @@ function marksSort() {
         let marks1 = parseInt(a.querySelector(".stuMarks")?.textContent.trim());
         let marks2 = parseInt(b.querySelector(".stuMarks")?.textContent.trim());
 
-        return marks2 - marks1;
+        return marks1 - marks2;
     })
 
     let tablebody = document.querySelector("#table-body");
@@ -355,7 +357,7 @@ getAllStudent.addEventListener("click", AllStudents);
 
 function AllStudents() {
     let tableBody = document.querySelector("#table-body");
-        tableBody.innerHTML = ``;
+      
     arrayOfStudents.map(getStudentDetails);
 
 
@@ -379,3 +381,8 @@ function AllStudents() {
         tbody.append(trow);
     }
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    getAllStudent.click();
+})
