@@ -11,24 +11,27 @@ body{
     background-color: black;
     padding:5px;
     font-weight: 500;
-    width: 100%;
+    width: 100vw;
     font-size: 22px;
 }
 
 #header{
     display: flex;
+    flex-wrap: wrap;
     margin:10px 0px;
     padding:5px;
-    width:80%;
-    justify-content: space-between;
-    align-items: center;margin-inline: auto;
+    width:80vw;
+    justify-content: center;
+    align-items: center;
+    margin-inline: auto;
 }
 #searchName{
-    width: 80%;
+    min-width: 80%;
     height: 35px;
     padding: 5px;
     font-size: 16px;
     border: 1px solid #ccc;
+    
 } 
 #search{
     height: 45px;
@@ -38,6 +41,7 @@ body{
     border: none;
     font-size: 18px;
     cursor: pointer;
+    margin-inline: auto;
 }
 #Map{
     height: 45px;
@@ -47,6 +51,7 @@ body{
     border: none;
     font-size: 14px;
     cursor: pointer;
+    margin-inline: auto;
 }
 .sort{
     cursor: pointer;
@@ -58,9 +63,11 @@ body{
     min-width:200px;
     height: 50px;
     text-align: center;
+    margin-inline: auto;
 }
 #short-manue{
     display: flex;
+    flex-wrap: wrap;
     margin:10px 0px;
     padding:5px;
     width:80%;
@@ -76,7 +83,6 @@ body{
     font-size: 16px;
     font-weight: 500;
     min-height: 50%;
-    /* border:2px solid black; */
     margin-top: 20px;
 }
 table{
