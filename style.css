@@ -17,7 +17,6 @@ body{
 
 #header{
     display: flex;
-    flex-wrap: wrap;
     margin:10px 0px;
     padding:5px;
     width:80vw;
@@ -60,21 +59,19 @@ body{
     background-color: black;
     padding-top: 28px;
     border: 1px solid #ccc;
-    min-width:200px;
+    min-width:180px;
     height: 50px;
     text-align: center;
     margin-inline: auto;
 }
 #short-manue{
     display: flex;
-    flex-wrap: wrap;
-    margin:10px 0px;
     padding:5px;
     width:80%;
     justify-content: space-between;
     align-items: center;
-    margin-inline: auto;
     margin-top: 20px;
+    margin-inline: auto;
 }
 
 #result-table{

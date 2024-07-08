@@ -130,7 +130,9 @@ function SearchStudent(event) {
 
     function getStudentDetails(student) {
 
-        if (student.first_name == firstName && student.last_name == lastName) {
+        if (student.first_name.toLowerCase() == firstName.toLocaleLowerCase() 
+            && student.last_name.toLocaleLowerCase() == lastName.toLocaleLowerCase()) 
+        {
             sudentFound=true;
             let trow = document.createElement('tr');
             trow.setAttribute("class", 'stuRow');
